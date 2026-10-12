@@ -1,0 +1,47 @@
+openapi: 3.0.3
+info:
+  title: API de Productos
+  version: 1.0.0
+  description: Aggregator que combina información de catálogo y descuentos.
+paths:
+  /api/v1/products/{id}:
+    get:
+      summary: Obtener la información consolidada de un producto
+      operationId: getProductById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Detalle del producto consolidado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDetailResponse'
+        '404':
+          description: Producto no encontrado
+components:
+  schemas:
+    ProductDetailResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        basePrice:
+          type: number
+          format: double
+        discountPercentage:
+          type: number
+          format: double
+        finalPrice:
+          type: number
+          format: double
+        stock:
+          type: integer

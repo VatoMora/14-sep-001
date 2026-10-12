@@ -1,0 +1,44 @@
+openapi: 3.0.3
+info:
+  title: API de Catálogo e Inventario
+  version: 1.0.0
+  description: Microservicio privado para gestionar el inventario de productos.
+paths:
+  /api/catalog/{productId}:
+    get:
+      summary: Obtener detalles e inventario de un producto
+      operationId: getCatalogByProductId
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Producto encontrado en catálogo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogResponse'
+        '404':
+          description: Producto no encontrado
+components:
+  schemas:
+    CatalogResponse:
+      type: object
+      properties:
+        productId:
+          type: integer
+          format: int64
+        name:
+          type: string
+          example: "Laptop Pro 15"
+        basePrice:
+          type: number
+          format: double
+          example: 1200.00
+        stock:
+          type: integer
+          example: 45

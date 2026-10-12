@@ -1,0 +1,41 @@
+openapi: 3.0.3
+info:
+  title: API de Descuentos
+  version: 1.0.0
+  description: Microservicio privado para calcular descuentos de productos.
+paths:
+  /api/discount/{productId}:
+    get:
+      summary: Obtener descuento por ID de producto
+      operationId: getDiscountByProductId
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Descuento encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscountResponse'
+        '404':
+          description: Descuento no encontrado
+components:
+  schemas:
+    DiscountResponse:
+      type: object
+      properties:
+        productId:
+          type: integer
+          format: int64
+        percentage:
+          type: number
+          format: double
+          example: 15.0
+        description:
+          type: string
+          example: "Descuento de temporada"
